@@ -1,3 +1,18 @@
+def rightStrip(string, chars=None):
+    
+    if chars is None:
+        # bila karakter yang di strip tidak diberikan, strip string berikut
+        chars = ' \t\n\r\f\v'
+    
+    # membaca string dari belakang
+    i = len(string) - 1
+    while i >= 0 and string[i] in chars:
+        i -= 1
+
+    # mengembalikan string yang telah di strip
+    return string[:i+1]
+
+
 
 def jumlah_elemen(line_csv):
     #line merupakan string
@@ -41,7 +56,7 @@ def csv_to_array(lokasi_fisik, variabel_target):
     n1 = 0 #jumlah elemen variabel_target
 
     for line in file:
-        line = line.rstrip() #Menghilangkan "\n"
+        line = rightStrip(line) #Menghilangkan "\n"
 
         arr_line = [0 for i in range(jumlah_elemen(line))]
 
