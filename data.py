@@ -1,3 +1,11 @@
+def sliceString(string, index): #fungsi slice array/string array[:index]
+    arrayTemp = [0 for i in range (index+1)]
+    newString = ''
+    for i in range (index+1):
+        arrayTemp[i] = string[i]
+        newString += arrayTemp[i]
+    return newString
+
 def rightStrip(string, chars=None):
     
     if chars is None:
@@ -8,9 +16,10 @@ def rightStrip(string, chars=None):
     i = len(string) - 1
     while i >= 0 and string[i] in chars:
         i -= 1
-
+    
+    newString = sliceString(string, i)
     # mengembalikan string yang telah di strip
-    return string[:i+1]
+    return newString
 
 
 
