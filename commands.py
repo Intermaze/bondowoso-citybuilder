@@ -28,6 +28,9 @@ def run(fungsi):
         bangun ()
     if fungsi == "kumpul":
         kumpul ()
+    if fungsi == "ubahjin":
+        ubahjin()
+
     # if fungsi == "batchkumpul":
     #     batchkumpul ()
     # if fungsi == "batchbangun":
@@ -112,6 +115,36 @@ def summonjin():
 
         jin = combine_arr_to_data(jin, arrTemp)
         print(jin)
+
+def tipe_lain_jin(tipejin):
+    if tipejin == "Pembangun":
+        return "Pengumpul"
+    else:
+        return "Pembangun"
+
+#f05
+def ubahjin():
+    global jin
+    user_jin = input("Masukkan username jin: ")
+    jin_found = False
+
+    for i in range(1, jin[0]+1):
+        if jin[i][0] == user_jin:
+            jin_found = True
+            konfirmasi = input(f"Jin ini bertipe “{jin[i][2]}”. Yakin ingin mengubah ke tipe “{tipe_lain_jin(jin[i][2])}” (Y/N)? ")
+
+            while True: #Mengulangi input sampai user memilih "Y" atau "N"
+                if konfirmasi == "Y":
+                    jin[i][2] == tipe_lain_jin(jin[i][2])
+                    print("Jin telah berhasil diubah.")
+                    break
+                if konfirmasi == "N":
+                    break
+                konfirmasi = input(f"Jin ini bertipe “{jin[i][2]}”. Yakin ingin mengubah ke tipe “Pembangun” (Y/N)?")
+            break
+    
+    if jin_found == False:
+        print("Tidak ada jin dengan username tersebut.")
 
 #f06 
 def bangun ():
