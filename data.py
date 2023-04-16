@@ -19,5 +19,8 @@ bahan_bangunan[0] = 0
 #[0] disini adalah Neff
 jin = [0]
 
+#Bahan awal
+bahan_bangunan = [[0 for x in range(0,4)] for y in range(0,4)]
+
 nama_user = "" #string ini kosong bila keadaan logout dan jika login akan terisi username yang login
             #nama user juga bisa menjadi penanda askes yang dimiliki suatu akun
