@@ -30,11 +30,10 @@ def run(fungsi):
         kumpul ()
     if fungsi == "ubahjin":
         ubahjin()
-
-    # if fungsi == "batchkumpul":
-    #     batchkumpul ()
-    # if fungsi == "batchbangun":
-    #     batchbangun ()        
+    if fungsi == "batchkumpul":
+        batchkumpul ()
+    if fungsi == "batchbangun":
+        batchbangun ()        
 
 #f01
 def login():
@@ -148,130 +147,176 @@ def ubahjin():
 
 #f06 
 def bangun ():
+    global jin
     global candi
-    perlu_pasir = random.randint(1, 5)
-    perlu_batu = random.randint(1, 5)
-    perlu_air = random.randint(1, 5)
+    #Mencari apakah ada jin pembangun
+    jin_pembangun = 0
+    for i in range (1,jin[0]+1):
+        if jin[i][2] == "Pembangun":
+            jin_pembangun += 1
 
-    #Bahan memenuhi
-    if int(bahan_bangunan[1][2]) >= perlu_pasir and int(bahan_bangunan[2][2]) >= perlu_batu and int(bahan_bangunan[3][2]) >= perlu_air :
-        bahan_bangunan[1][2] = int(bahan_bangunan[1][2]) - perlu_pasir
-        bahan_bangunan[2][2] = int(bahan_bangunan[2][2]) - perlu_batu
-        bahan_bangunan[3][2] = int(bahan_bangunan[3][2]) - perlu_air
+    #Jin kurang dari 1
+    if jin_pembangun < 1 :
+        print ("Bangun gagal. Anda tidak punya jin pembangun. Silahkan summon terlebih dahulu.")
 
-        if candi [0] == 0:
-            id_terakhir = 1
-        else:
-            for i in range (candi[0], 0, -1):
-                if candi[i][0] != "":
-                    id_terakhir = i+1
-                    break
-        
-        arrTemp = [id_terakhir, nama_user, perlu_pasir, perlu_batu, perlu_air]
-
-        candi = combine_arr_to_data(candi, arrTemp)
-
-        print ("Candi berhasil dibangun.")
-        print (f"Sisa candi yang perlu dibangun: {100-(id_terakhir)}.")
-        print (candi)
-
-
-    #Bahan tidak memenuhi
     else :
-        print ("Bahan bangunan tidak mencukupi.")
-        print ("Candi tidak bisa dibangun!")
+        perlu_pasir = random.randint(1, 5)
+        perlu_batu = random.randint(1, 5)
+        perlu_air = random.randint(1, 5)
+
+        #Bahan memenuhi
+        if int(bahan_bangunan[1][2]) >= perlu_pasir and int(bahan_bangunan[2][2]) >= perlu_batu and int(bahan_bangunan[3][2]) >= perlu_air :
+            bahan_bangunan[1][2] = int(bahan_bangunan[1][2]) - perlu_pasir
+            bahan_bangunan[2][2] = int(bahan_bangunan[2][2]) - perlu_batu
+            bahan_bangunan[3][2] = int(bahan_bangunan[3][2]) - perlu_air
+            
+            #Cari indeks candi kosong
+            if candi [0] == 0:
+                id_terakhir = 1
+            else:
+                for i in range (candi[0], 0, -1):
+                    if candi[i][0] != "":
+                        id_terakhir = i+1
+                        break
+            
+            arrTemp = [id_terakhir, nama_user, perlu_pasir, perlu_batu, perlu_air]
+
+            candi = combine_arr_to_data(candi, arrTemp)
+
+            print ("Candi berhasil dibangun.")
+            print (f"Sisa candi yang perlu dibangun: {100-(id_terakhir)}.")
+            print (candi)
+
+        #Bahan tidak memenuhi
+        else :
+            print ("Bahan bangunan tidak mencukupi.")
+            print ("Candi tidak bisa dibangun!")
                
 #f07
 def kumpul ():
-    dapet_pasir = random.randint(0, 5)
-    dapet_batu = random.randint(0, 5)
-    dapet_air = random.randint(0, 5)
+    global jin
+    #Mencari apakah ada jin pengumpul
+    jin_pengumpul = 0
+    for i in range (1,jin[0]+1):
+        if jin[i][2] == "Pengumpul":
+            jin_pengumpul += 1
 
-    bahan_bangunan[1][2] = int(bahan_bangunan[1][2]) + dapet_pasir
-    bahan_bangunan[2][2] = int(bahan_bangunan[2][2]) + dapet_batu
-    bahan_bangunan[3][2] = int(bahan_bangunan[3][2]) + dapet_air
+    if jin_pengumpul < 1 :
+        print ("Kumpul gagal. Anda tidak punya jin pengumpul. Silahkan summon terlebih dahulu.")
+    
+    else :
+        dapet_pasir = random.randint(0, 5)
+        dapet_batu = random.randint(0, 5)
+        dapet_air = random.randint(0, 5)
 
-    print (f"Jin menemukan {dapet_pasir} pasir, {dapet_batu} batu, dan {dapet_air} air.")
+        bahan_bangunan[1][2] = int(bahan_bangunan[1][2]) + dapet_pasir
+        bahan_bangunan[2][2] = int(bahan_bangunan[2][2]) + dapet_batu
+        bahan_bangunan[3][2] = int(bahan_bangunan[3][2]) + dapet_air
 
-# #f08
-# def batchkumpul ():
-#     #Mencari berapa banyak jin pemngumpul
-#     jin_pengumpul = 0
-#     for i in range (3,100):
-#         if user[i][2] == "Pengumpul":
-#             jin_pengumpul += 1
+        print (f"Jin menemukan {dapet_pasir} pasir, {dapet_batu} batu, dan {dapet_air} air.")
 
-#     total_pasir = 0
-#     total_batu = 0
-#     total_air = 0
+#f08
+def batchkumpul ():
+    global jin
+    #Mencari berapa banyak jin pengumpul
+    jin_pengumpul = 0
+    for i in range (1,jin[0]+1):
+        if jin[i][2] == "Pengumpul":
+            jin_pengumpul += 1
 
-#     for i in range (jin_pengumpul):
-#         dapet_pasir = random.randint(0, 5)
-#         dapet_batu = random.randint(0, 5)
-#         dapet_air = random.randint(0, 5)
-#         total_pasir += dapet_pasir
-#         total_batu += dapet_batu
-#         total_air += dapet_air
+    if jin_pengumpul < 1 :
+        print ("Kumpul gagal. Anda tidak punya jin pengumpul. Silahkan summon terlebih dahulu.")
 
-#     bahan_bangunan[1][2] += total_pasir
-#     bahan_bangunan[2][2] += total_batu
-#     bahan_bangunan[3][2] += total_air
+    else:
+        #Declare bahan bangunan yang didapat
+        total_pasir = 0
+        total_batu = 0
+        total_air = 0
 
-#     print (f"Mengerahkan {jin_pengumpul} jin untuk mengumpulkan bahan.")
-#     print (f"Jin menemukan total {total_pasir} pasir, {total_batu} batu, dan {total_air} air.")
+        for i in range (jin_pengumpul):
+            dapet_pasir = random.randint(0, 5)
+            dapet_batu = random.randint(0, 5)
+            dapet_air = random.randint(0, 5)
+            total_pasir += dapet_pasir
+            total_batu += dapet_batu
+            total_air += dapet_air
 
-# def batchbangun ():
-#     #Mencari berapa banyak jin pembangun
-#     jin_pembangun = 0
-#     for i in range (3,100):
-#         if user[i][2] == "Pembangun":
-#             jin_pembangun += 1
+        bahan_bangunan[1][2] = int(bahan_bangunan[1][2]) + total_pasir
+        bahan_bangunan[2][2] = int(bahan_bangunan[2][2]) + total_batu
+        bahan_bangunan[3][2] = int(bahan_bangunan[3][2]) + total_air
 
-#     #Jin kurang dari 1
-#     if jin_pembangun < 0 :
-#         print ("Bangun gagal. Anda tidak punya jin pembangun. Silahkan summon terlebih dahulu.")
+        print (f"Mengerahkan {jin_pengumpul} jin untuk mengumpulkan bahan.")
+        print (f"Jin menemukan total {total_pasir} pasir, {total_batu} batu, dan {total_air} air.")
 
-#     total_pasir = 0
-#     total_batu = 0
+def batchbangun ():
+    global jin
+    global candi
+    #Mencari berapa banyak jin pembangun
+    jin_pembangun = 0
+    for i in range (1,jin[0]+1):
+        if jin[i][2] == "Pembangun":
+            jin_pembangun += 1
 
-#     total_air = 0
-#     for i in range (jin_pembangun):
-#         dapet_pasir = random.randint(0, 5)
-#         dapet_batu = random.randint(0, 5)
-#         dapet_air = random.randint(0, 5)
-#         total_pasir += dapet_pasir
-#         total_batu += dapet_batu
-#         total_air += dapet_air
+    #Jin kurang dari 1
+    if jin_pembangun < 1 :
+        print ("Bangun gagal. Anda tidak punya jin pembangun. Silahkan summon terlebih dahulu.")
 
-#         #Cari candi kosong
-#         for j in range (1,100): 
-#             if candi[i][0] == "":
-#                 candi[i][0] = i
-#                 candi[i][1] = nama_user
-#                 candi[i][2] = bahan_bangunan[1][2]
-#                 candi[i][3] = bahan_bangunan[2][2]
-#                 candi[i][4] = bahan_bangunan[3][2]
-#                 break
+    else :
+        total_pasir = 0
+        total_batu = 0
+        total_air = 0
 
-#     #Bahan memenuhi
-#     if bahan_bangunan[1][2] >= total_pasir and bahan_bangunan[2][0] >= total_batu and bahan_bangunan[3][0] >= total_air :
-#         bahan_bangunan[1][2] -= total_pasir
-#         bahan_bangunan[2][2] -= total_batu
-#         bahan_bangunan[3][2] -= total_air      
-#         print (f"Mengerahkan {jin_pembangun} jin untuk membangun candi dengan total bahan {bahan_bangunan[1][2]} pasir, {bahan_bangunan[2][2]} batu, dan {bahan_bangunan[3][2]} air.")
-#         print (f"Jin berhasil membangun total {jin_pembangun} candi.")
+        arrbahan_pasir = [0 for i in range (jin_pembangun)]
+        arrbahan_batu = [0 for i in range (jin_pembangun)]
+        arrbahan_air = [0 for i in range (jin_pembangun)]
 
-#     #Menghilangkan indeks yang sudah diisi karena kurang bahan
-#     else :
-#         for i in range (jin_pembangun): 
-#             for j in range (3,100): 
-#                 if candi[i][0] == "":
-#                     candi[i-1][0] = ""
-#                     candi[i-1][1] = ""
-#                     candi[i-1][2] = ""
-#                     candi[i-1][3] = ""
-#                     candi[i-1][4] = ""
-#                     break
+        for i in range (jin_pembangun):
+            arrbahan_pasir[i] = random.randint(1, 5)
+            arrbahan_batu[i] = random.randint(1, 5)
+            arrbahan_air[i] = random.randint(1, 5)
+            total_pasir += arrbahan_pasir[i]
+            total_batu += arrbahan_batu[i]
+            total_air += arrbahan_air[i]
 
-#         print (f"Mengerahkan {jin_pembangun} jin untuk membangun candi dengan total bahan {bahan_bangunan[1][2]} pasir, {bahan_bangunan[2][2]} batu, dan {bahan_bangunan[3][2]} air.")
-#         print(f"Bangun gagal. Kurang {total_pasir} pasir, {total_batu} batu, dan {total_air} air.")
+        #Bahan memenuhi
+        if int(bahan_bangunan[1][2]) >= total_pasir and int(bahan_bangunan[2][2]) >= total_batu and int(bahan_bangunan[3][2]) >= total_air :
+            bahan_bangunan[1][2] = int(bahan_bangunan[1][2]) - total_pasir
+            bahan_bangunan[2][2] = int(bahan_bangunan[2][2]) - total_batu
+            bahan_bangunan[3][2] = int(bahan_bangunan[3][2]) - total_air
+            
+            #Cari candi kosong
+            for i in range (jin_pembangun):
+                if candi [0] == 0:
+                    id_terakhir = 1
+                else:
+                    for j in range (candi[0], 0, -1):
+                        if candi[j][0] != "":
+                            id_terakhir = i+1
+                            break
+
+                arrTemp = [id_terakhir, nama_user, arrbahan_pasir[i], arrbahan_batu[i], arrbahan_air[i]]
+
+                candi = combine_arr_to_data(candi, arrTemp)
+
+            print (f"Mengerahkan {jin_pembangun} jin untuk membangun candi dengan total bahan {total_pasir} pasir, {total_batu} batu, dan {total_air} air.")
+            print (f"Jin berhasil membangun total {jin_pembangun} candi.")
+            print (candi)
+    
+        #Tidak cukup bahan
+        else :
+            #Mengubah jika salah satu bahan yang mencukupi agar tidak negatif
+            if total_pasir-bahan_bangunan[1][2] < 0 :
+                kurang_pasir = 0
+            else :
+                kurang_pasir = total_pasir-bahan_bangunan[1][2]
+            if total_batu-bahan_bangunan[2][2] < 0 :
+                kurang_batu = 0
+            else :
+                kurang_batu = total_batu-bahan_bangunan[2][2]         
+            if total_air-bahan_bangunan[3][2] < 0 :
+                kurang_air = 0
+            else :
+                kurang_air = total_air-bahan_bangunan[3][2]
+
+            print (f"Mengerahkan {jin_pembangun} jin untuk membangun candi dengan total bahan {total_pasir} pasir, {total_batu} batu, dan {total_air} air.")
+            print (f"Bangun gagal. Kurang {kurang_pasir} pasir, {kurang_batu} batu, dan {kurang_air} air.")
