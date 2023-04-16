@@ -28,10 +28,10 @@ def run(fungsi):
         bangun ()
     if fungsi == "kumpul":
         kumpul ()
-    if fungsi == "batchkumpul":
-        batchkumpul ()
-    if fungsi == "batchbangun":
-        batchbangun ()        
+    # if fungsi == "batchkumpul":
+    #     batchkumpul ()
+    # if fungsi == "batchbangun":
+    #     batchbangun ()        
 
 #f01
 def login():
