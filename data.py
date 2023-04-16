@@ -1,93 +1,23 @@
-def sliceString(string, index): #fungsi slice array/string array[:index]
-    arrayTemp = [0 for i in range (index+1)]
-    newString = ''
-    for i in range (index+1):
-        arrayTemp[i] = string[i]
-        newString += arrayTemp[i]
-    return newString
+from data_functions import csv_to_array
 
-def rightStrip(string, chars=None):
-    
-    if chars is None:
-        # bila karakter yang di strip tidak diberikan, strip string berikut
-        chars = ' \t\n\r\f\v'
-    
-    # membaca string dari belakang
-    i = len(string) - 1
-    while i >= 0 and string[i] in chars:
-        i -= 1
-    
-    newString = sliceString(string, i)
-    # mengembalikan string yang telah di strip
-    return newString
+# Anggap semua fungsi yang dipanggil merupakan fungsi yang sudah dibuat sendiri pada modul lain
+users = [] # Matriks data user
+candi = [] # Matriks data candi
+bahan_bangunan = [] # Data bahan bangunan
 
+users = csv_to_array("save/user.csv", users)
+candi = csv_to_array("save/candi.csv", candi)
+bahan_bangunan = csv_to_array("save/bahan_bangunan.csv", bahan_bangunan)
 
+#Indeks yang tidak dipakai (hanya berisi nama indeks) diubah menjadi Neff, menjadi [Neff, [data]]
+users[0] = 2
+candi[0] = 0
+bahan_bangunan[0] = 0
 
-def jumlah_elemen(line_csv):
-    #line merupakan string
+#Tipe data untuk jin
+#[Neff, [username_jin, password_jin, jenis_jin]]
+#[0] disini adalah Neff
+jin = [0]
 
-    count = 0
-    for i in range(len(line_csv)):
-        if line_csv[i] == ";":
-            count += 1
-
-    #jumlah elemen dalam 1 line csv merupakan jumlah ";" ditambah 1
-    return count+1
-
-#Fungsi append buatan
-def append_arr2_to_arr1(arr1, arr2, N1, N2):
-    #N1 dan N2 adalah panjang array
-    arr3 = [0 for i in range(N1+N2)]
-
-    for i in range(N1):
-        arr3[i] = arr1[i]
-    for i in range(N2):
-        arr3[N1+i] = arr2[i]
-
-    return arr3
-
-def combine_arr2_to_arr1(arr1, arr2, N1):
-    #N1 dan N2 adalah panjang array
-    arr3 = [0 for i in range(N1+1)]
-
-    for i in range(N1):
-        arr3[i] = arr1[i]
-    arr3[N1] = arr2
-
-    return arr3
-
-    
-
-def csv_to_array(lokasi_fisik, variabel_target):
-
-    #Inisialisasi
-    file = open(lokasi_fisik, 'r')
-    n1 = 0 #jumlah elemen variabel_target
-
-    for line in file:
-        line = rightStrip(line) #Menghilangkan "\n"
-
-        arr_line = [0 for i in range(jumlah_elemen(line))]
-
-        temp = ""
-        element_count = 0
-        for i in range(len(line)):
-            if line[i] != ";":
-                temp += line[i]
-            else:
-                arr_line[element_count] = temp
-                element_count += 1
-                temp = ""
-
-        #Ada elemen lagi, karena tidak ada ";" di akhir line
-        arr_line[element_count] = temp
-
-        variabel_target = combine_arr2_to_arr1(variabel_target, arr_line, n1)
-        n1 += 1
-    
-    return variabel_target
-
-
-    
-
-
+nama_user = "" #string ini kosong bila keadaan logout dan jika login akan terisi username yang login
+            #nama user juga bisa menjadi penanda askes yang dimiliki suatu akun
