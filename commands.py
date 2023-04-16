@@ -83,10 +83,15 @@ def summonjin():
             if jin[0] == 0: #Jika belum ada jin, langsung lanjut ke tahap berikutnya
                 break
             else:
+                username_jin_sudah_diambil = False
                 for i in range(1,jin[0]+1): #disini ngecek setiap indeks user apakah ada yang sama atau nggak
                     if username_jin == jin[i][0]:
-                        break
-            print(f'Username “{username_jin}” sudah diambil!')
+                        username_jin_sudah_diambil = True
+            
+            if username_jin_sudah_diambil:
+                print(f'Username “{username_jin}” sudah diambil!')
+            else:
+                break
 
         while True:
             password_jin = input('Masukkan password jin: ')
@@ -96,5 +101,5 @@ def summonjin():
         
         arrTemp = [username_jin, password_jin, jenis_jin]
 
-        combine_arr_to_data(jin, arrTemp)
+        jin = combine_arr_to_data(jin, arrTemp)
         print(jin)
