@@ -33,7 +33,16 @@ def run(fungsi):
     if fungsi == "batchkumpul":
         batchkumpul ()
     if fungsi == "batchbangun":
-        batchbangun ()        
+        batchbangun ()
+    if fungsi == "debug":
+        debug()
+
+#f00 (Testing; lihat isi data)
+def debug():
+    print("nama_user:", nama_user)
+    print("users:",users)
+    print("candi:",candi)
+    print("bahan_bangunan:",bahan_bangunan)
 
 #f01
 def login():
@@ -76,44 +85,52 @@ def logout():
 #f03
 def summonjin():
     if nama_user == "Bondowoso":
-        global jin #Akses jin sebagai variabel global
-
-        while True:
-            nomor_jenis_jin = int(input("Masukkan nomor jenis jin yang ingin dipanggil: "))
-            if nomor_jenis_jin == 1 or nomor_jenis_jin == 2:
-                break
-            print(f'Tidak ada jenis jin bernomor "{nomor_jenis_jin}"!')
-
-        if nomor_jenis_jin == 1 :
-            jenis_jin = 'Pengumpul'
-        else:
-            jenis_jin = 'Pembangun'
-
-        while True:
-            username_jin = input('Masukkan username jin: ')
-            if jin[0] == 0: #Jika belum ada jin, langsung lanjut ke tahap berikutnya
-                break
-            else:
-                username_jin_sudah_diambil = False
-                for i in range(1,jin[0]+1): #disini ngecek setiap indeks user apakah ada yang sama atau nggak
-                    if username_jin == jin[i][0]:
-                        username_jin_sudah_diambil = True
-            
-            if username_jin_sudah_diambil:
-                print(f'Username “{username_jin}” sudah diambil!')
-            else:
-                break
-
-        while True:
-            password_jin = input('Masukkan password jin: ')
-            if 4<=len(password_jin)<=25 :
-                break
-            print('Password panjangnya harus 5-25 karakter!')
+        global users #Akses jin sebagai variabel global
         
-        arrTemp = [username_jin, password_jin, jenis_jin]
+        if users[0] == 100:
+            print("Jumlah Jin telah maksimal! (100 jin). Bandung tidak dapat men-summon lebih dari itu")
+        else:
 
-        jin = combine_arr_to_data(jin, arrTemp)
-        print(jin)
+            while True:
+                nomor_jenis_jin = int(input("Masukkan nomor jenis jin yang ingin dipanggil: "))
+                if nomor_jenis_jin == 1 or nomor_jenis_jin == 2:
+                    break
+                print(f'Tidak ada jenis jin bernomor "{nomor_jenis_jin}"!')
+
+            if nomor_jenis_jin == 1 :
+                jenis_jin = 'Pengumpul'
+            else:
+                jenis_jin = 'Pembangun'
+
+            while True:
+                username_jin = input('Masukkan username jin: ')
+                if users[0] == 2: #Jika belum ada jin, langsung lanjut ke tahap berikutnya
+                    break
+                else:
+                    username_jin_sudah_diambil = False
+                    for i in range(3,users[0]+1): #disini ngecek setiap indeks user apakah ada yang sama atau nggak
+                        if username_jin == users[i][0]:
+                            username_jin_sudah_diambil = True
+                
+                if username_jin_sudah_diambil:
+                    print(f'Username “{username_jin}” sudah diambil!')
+                else:
+                    break
+
+            while True:
+                password_jin = input('Masukkan password jin: ')
+                if 4<=len(password_jin)<=25 :
+                    break
+                print('Password panjangnya harus 5-25 karakter!')
+            
+            print("Mengumpulkan sesajen...")
+            print("Menyerahkan sesajen...")
+            print("Membacakan mantra...")
+            print(f"Jin {username_jin} berhasil dipanggil!")
+
+            arrTemp = [username_jin, password_jin, jenis_jin]
+
+            users = combine_arr_to_data(users, arrTemp)
 
 def tipe_lain_jin(tipejin):
     if tipejin == "Pembangun":
@@ -123,23 +140,23 @@ def tipe_lain_jin(tipejin):
 
 #f05
 def ubahjin():
-    global jin
+    global users
     user_jin = input("Masukkan username jin: ")
     jin_found = False
 
-    for i in range(1, jin[0]+1):
-        if jin[i][0] == user_jin:
+    for i in range(3, users[0]+1):
+        if users[i][0] == user_jin:
             jin_found = True
-            konfirmasi = input(f"Jin ini bertipe “{jin[i][2]}”. Yakin ingin mengubah ke tipe “{tipe_lain_jin(jin[i][2])}” (Y/N)? ")
+            konfirmasi = input(f"Jin ini bertipe “{users[i][2]}”. Yakin ingin mengubah ke tipe “{tipe_lain_jin(users[i][2])}” (Y/N)? ")
 
             while True: #Mengulangi input sampai user memilih "Y" atau "N"
                 if konfirmasi == "Y":
-                    jin[i][2] == tipe_lain_jin(jin[i][2])
+                    users[i][2] = tipe_lain_jin(users[i][2])
                     print("Jin telah berhasil diubah.")
                     break
                 if konfirmasi == "N":
                     break
-                konfirmasi = input(f"Jin ini bertipe “{jin[i][2]}”. Yakin ingin mengubah ke tipe “Pembangun” (Y/N)?")
+                konfirmasi = input(f"Jin ini bertipe “{users[i][2]}”. Yakin ingin mengubah ke tipe “Pembangun” (Y/N)?")
             break
     
     if jin_found == False:
@@ -147,12 +164,12 @@ def ubahjin():
 
 #f06 
 def bangun ():
-    global jin
+    global users
     global candi
     #Mencari apakah ada jin pembangun
     jin_pembangun = 0
-    for i in range (1,jin[0]+1):
-        if jin[i][2] == "Pembangun":
+    for i in range (3,users[0]+1):
+        if users[i][2] == "Pembangun":
             jin_pembangun += 1
 
     #Jin kurang dari 1
@@ -194,11 +211,11 @@ def bangun ():
                
 #f07
 def kumpul ():
-    global jin
+    global users
     #Mencari apakah ada jin pengumpul
     jin_pengumpul = 0
-    for i in range (1,jin[0]+1):
-        if jin[i][2] == "Pengumpul":
+    for i in range (3,users[0]+1):
+        if users[i][2] == "Pengumpul":
             jin_pengumpul += 1
 
     if jin_pengumpul < 1 :
@@ -217,11 +234,11 @@ def kumpul ():
 
 #f08
 def batchkumpul ():
-    global jin
+    global users
     #Mencari berapa banyak jin pengumpul
     jin_pengumpul = 0
-    for i in range (1,jin[0]+1):
-        if jin[i][2] == "Pengumpul":
+    for i in range (3,users[0]+1):
+        if users[i][2] == "Pengumpul":
             jin_pengumpul += 1
 
     if jin_pengumpul < 1 :
@@ -249,12 +266,12 @@ def batchkumpul ():
         print (f"Jin menemukan total {total_pasir} pasir, {total_batu} batu, dan {total_air} air.")
 
 def batchbangun ():
-    global jin
+    global users
     global candi
     #Mencari berapa banyak jin pembangun
     jin_pembangun = 0
-    for i in range (1,jin[0]+1):
-        if jin[i][2] == "Pembangun":
+    for i in range (3,users[0]+1):
+        if users[i][2] == "Pembangun":
             jin_pembangun += 1
 
     #Jin kurang dari 1
@@ -300,7 +317,6 @@ def batchbangun ():
 
             print (f"Mengerahkan {jin_pembangun} jin untuk membangun candi dengan total bahan {total_pasir} pasir, {total_batu} batu, dan {total_air} air.")
             print (f"Jin berhasil membangun total {jin_pembangun} candi.")
-            print (candi)
     
         #Tidak cukup bahan
         else :

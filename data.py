@@ -14,11 +14,6 @@ users[0] = 2
 candi[0] = 0
 bahan_bangunan[0] = 0
 
-#Tipe data untuk jin
-#[Neff, [username_jin, password_jin, jenis_jin]]
-#[0] disini adalah Neff
-jin = [0]
-
 #Bahan awal
 bahan_bangunan = [[0 for i in range(0,4)] for j in range(0,4)]
 
