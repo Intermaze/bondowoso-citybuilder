@@ -33,7 +33,9 @@ def run(fungsi):
     if fungsi == "batchkumpul":
         batchkumpul ()
     if fungsi == "batchbangun":
-        batchbangun ()        
+        batchbangun ()  
+    if fungsi == "help":
+        help ()        
 
 #f01
 def login():
