@@ -326,6 +326,7 @@ def batchbangun ():
                 print (f"Mengerahkan {jin_pembangun} jin untuk membangun candi dengan total bahan {total_pasir} pasir, {total_batu} batu, dan {total_air} air.")
                 print (f"Bangun gagal. Kurang {kurang_pasir} pasir, {kurang_batu} batu, dan {kurang_air} air.")
 
+#f15
 help_belum_login =['login', 'exit', 'save']
 help_bondowoso = ['logout', 'summonjin', 'hapusjin', 'ubahjin', 'batchkumpul', 'batchbangun', 'laporanjin', 'laporancandi', 'save', 'exit']
 help_roro = ['logout','hancurkancandi', 'ayamberkokok', 'save', 'exit']
@@ -379,6 +380,7 @@ def print_help (command):
     return
 
 def help():
+    print('=========== HELP ===========')
     if nama_user == '':
         for i in range (3):
             print((i+1), end="")
