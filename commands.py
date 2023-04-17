@@ -323,3 +323,69 @@ def batchbangun ():
 
                 print (f"Mengerahkan {jin_pembangun} jin untuk membangun candi dengan total bahan {total_pasir} pasir, {total_batu} batu, dan {total_air} air.")
                 print (f"Bangun gagal. Kurang {kurang_pasir} pasir, {kurang_batu} batu, dan {kurang_air} air.")
+
+help_belum_login =['login', 'exit', 'save']
+help_bondowoso = ['logout', 'summonjin', 'hapusjin', 'ubahjin', 'batchkumpul', 'batchbangun', 'laporanjin', 'laporancandi', 'save', 'exit']
+help_roro = ['logout','hancurkancandi', 'ayamberkokok', 'save', 'exit']
+
+def print_help (command):
+    if command == 'login':
+        print('. login')
+        print('   Untuk masuk menggunakan akun')
+    if command == 'logout':
+        print('. logout')
+        print('   Untuk keluar dari akun')
+    if command == 'summonjin':
+        print('. summonjin')
+        print('   Untuk membuat jin dengan akun baru')
+    if command == 'hapusjin':
+        print('. hapusjin')
+        print('   Untuk menghapus akun jin')
+    if command == 'ubahjin':
+        print('. ubahjin')
+        print('   Untuk mengubah tipe jin')
+    if command == 'bangun':
+        print('. bangun')
+        print('   Untuk membangun candi')
+    if command == 'kumpul':
+        print('. kumpul')
+        print('   Untuk mengumpulkan bahan-bahan untuk bangun candi')
+    if command == 'batchkumpul':
+        print('. batchkumpul')
+        print('   Untuk memerintah semua jin mengumpulkan bahan-bahan')
+    if command == 'batchbangun':
+        print('. batchbangun')
+        print('   Untuk mengerahkan semua jin membangun candi')
+    if command == 'laporanjin':
+        print('. laporanjin')
+        print('   Untuk mengambil laporan kinerja para jin')
+    if command == 'laporancandi':
+        print('. laporancandi')
+        print('   Untuk mengambil laporan progres pembangunan candi')
+    if command == 'hancurkancandi':
+        print('. hancurkancandi')
+        print('   Untuk menghancurkan candi')
+    if command == 'ayamberkokok':
+        print('. ayamberkokok')
+        print('   Untuk menyelesaikan permainan')
+    if command == 'save':
+        print('. save')
+        print('   Untuk menyimpan progres permainan')
+    if command == 'exit':
+        print('. exit')
+        print('   Untuk keluar dari program')
+    return
+
+def help():
+    if nama_user == '':
+        for i in range (3):
+            print((i+1), end="")
+            print_help(help_belum_login[i])
+    elif nama_user == 'Bondowoso':
+        for i in range (10):
+            print((i+1), end="")
+            print_help(help_bondowoso[i])
+    elif nama_user == 'Roro':
+        for i in range (5):
+            print((i+1), end="")
+            print_help(help_roro[i])
