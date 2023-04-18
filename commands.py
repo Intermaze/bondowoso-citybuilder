@@ -37,7 +37,9 @@ def run(fungsi):
     if fungsi == "batchbangun":
         batchbangun ()  
     if fungsi == "help":
-        help ()        
+        help ()
+    if fungsi == "ayamberkokok":
+        ayamberkokok ()         
 
 #f00 (Testing; lihat isi data)
 def debug():
@@ -333,11 +335,26 @@ def batchbangun ():
                 print (f"Mengerahkan {jin_pembangun} jin untuk membangun candi dengan total bahan {total_pasir} pasir, {total_batu} batu, dan {total_air} air.")
                 print (f"Bangun gagal. Kurang {kurang_pasir} pasir, {kurang_batu} batu, dan {kurang_air} air.")
 
-#f15
-help_belum_login =['login', 'exit', 'save']
-help_bondowoso = ['logout', 'summonjin', 'hapusjin', 'ubahjin', 'batchkumpul', 'batchbangun', 'laporanjin', 'laporancandi', 'save', 'exit']
-help_roro = ['logout','hancurkancandi', 'ayamberkokok', 'save', 'exit']
+#f12
+def ayamberkokok ():
+    count_candi = 0
+    for i in range (candi[0], 0, -1):
+        if candi[i][0] != "":
+            count_candi += 1
+    print("Kukuruyuk.. Kukuruyuk..")
+    print("")
+    print("Jumlah Candi : ",count_candi)
+    print("")
+    if count_candi >= 100 :
+        print("Yah,Bandung Bondowoso memenangkan permainan!")
+    else :
+        print("Selamat, Roro Jonggrang memenangkan permainan!")
+        print("")
+        print("*Bandung Bondowoso angry noise*")
+        print("Roro Jonggrang dikutuk menjadi candi.")
 
+
+#f15
 def print_help (command):
     if command == 'login':
         print('. login')
@@ -387,6 +404,12 @@ def print_help (command):
     return
 
 def help():
+    help_belum_login =['login', 'exit', 'save']
+    help_bondowoso = ['logout', 'summonjin', 'hapusjin', 'ubahjin', 'batchkumpul', 'batchbangun', 'laporanjin', 'laporancandi', 'save', 'exit']
+    help_roro = ['logout','hancurkancandi', 'ayamberkokok', 'save', 'exit']
+    help_jin_pengumpul = ['logout','kumpul','save','exit']
+    help_jin_pembangun = ['logout','bangun','save','exit']
+    global users
     print('=========== HELP ===========')
     if nama_user == '':
         for i in range (3):
@@ -400,3 +423,14 @@ def help():
         for i in range (5):
             print((i+1), end="")
             print_help(help_roro[i])
+    else:
+        for i in range (3,users[0]+1):
+            if users[i][0] == nama_user :
+                if users[i][2] == "Pengumpul" :
+                    for i in range (4):
+                        print((i+1), end="")
+                        print_help(help_jin_pengumpul[i])
+                if users[i][2] == "Pembangun" :
+                    for i in range (4):
+                        print((i+1), end="")
+                        print_help(help_jin_pembangun[i])
