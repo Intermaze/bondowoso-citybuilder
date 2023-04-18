@@ -300,6 +300,7 @@ def batchbangun ():
                 bahan_bangunan[3][2] = int(bahan_bangunan[3][2]) - total_air
                 
                 #Cari candi kosong
+                indeks_jin_pembangun = 3 #Untuk mengecek setiap jin pembangun yang akan dicatat, mulai dari indeks jin(3)
                 for i in range (jin_pembangun):
                     if candi [0] == 0:
                         id_terakhir = 1
@@ -308,8 +309,17 @@ def batchbangun ():
                             if candi[j][0] != "":
                                 id_terakhir = i+1
                                 break
+                    
+                    #Mengecek jin pembangun agar bisa dimasukkan ke data candi
+                    while users[indeks_jin_pembangun][2] != "Pembangun": 
+                        indeks_jin_pembangun = indeks_jin_pembangun+1
+                    
+                    jin_yang_bangun = users[indeks_jin_pembangun][0]
 
-                    arrTemp = [id_terakhir, nama_user, arrbahan_pasir[i], arrbahan_batu[i], arrbahan_air[i]]
+                    #Setelah mendapat jin, akan melanjutkan ke indeks berikutnya agar tidak mengulang ke jin yang sama
+                    indeks_jin_pembangun = indeks_jin_pembangun+1
+
+                    arrTemp = [id_terakhir, jin_yang_bangun, arrbahan_pasir[i], arrbahan_batu[i], arrbahan_air[i]]
 
                     candi = combine_arr_to_data(candi, arrTemp)
 
