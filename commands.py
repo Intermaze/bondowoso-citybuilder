@@ -119,7 +119,7 @@ def summonjin():
 
         while True:
             password_jin = input('Masukkan password jin: ')
-            if 4<=len(password_jin)<=25 :
+            if 4<len(password_jin)<=25 :
                 break
             print('Password panjangnya harus 5-25 karakter!')
         
@@ -132,6 +132,50 @@ def tipe_lain_jin(tipejin):
         return "Pengumpul"
     else:
         return "Pembangun"
+
+def hapusLineArray(nama_array, jumlah_kolom_array, index_line_array): #fungsi mengubah isi satu line pada array menjadi none
+    global users
+    global candi
+    global bahan_bangunan
+    for i in range (jumlah_kolom_array): #jumlah kolom pada array start dari 0
+        nama_array[index_line_array][i] = None
+
+#f04
+def hapusjin ():
+    global users
+    global candi
+
+    #inisiasi awal dan input
+    username_jin = str(input('Masukkan username jin : '))
+    index_jin = -1 #-1 artinya tidak terdaftar
+
+    #mengecek apakah username jin terdaftar
+    for i in range(3,users[0]+1): #disini ngecek setiap indeks user jin apakah ada yang sama atau nggak
+        if username_jin == users[i][0]:
+            index_jin = i
+
+    tipeJin_Temp = users[index_jin][2] #tipe jin yang ingin dihapus
+
+    if index_jin != -1 : #apabila jin terdaftar
+        while True : #memastikan input konfirmasi benar
+            confirm = str(input('Apakah anda yakin ingin menghapus jin dengan username Jin1 (Y/N)?'))
+            if confirm == 'Y' or confirm == 'N':
+                break
+
+        if confirm == 'Y': #menghapus jin yang dipilih
+            if tipeJin_Temp == 'Pembangun': 
+                for i in range (1,candi[0]+1):
+                    if username_jin == candi[i][1]:
+                        hapusLineArray(candi, 4, i)
+            hapusLineArray(users, 2, index_jin)
+            return print('Jin telah berhasil dihapus dari alam gaib.')
+        
+        else: #tidak jadi menghapus jin yang terdaftar
+            return print('Jin tidak jadi dihapus dari alam gaib')
+        
+    else: #jin tidak terdaftar
+        return print('Tidak ada jin dengan username tersebut.')
+
 
 #f05
 def ubahjin():
