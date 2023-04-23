@@ -389,6 +389,34 @@ def batchbangun ():
                 print (f"Mengerahkan {jin_pembangun} jin untuk membangun candi dengan total bahan {total_pasir} pasir, {total_batu} batu, dan {total_air} air.")
                 print (f"Bangun gagal. Kurang {kurang_pasir} pasir, {kurang_batu} batu, dan {kurang_air} air.")
 
+#f11
+def hancurkancandi():
+    global candi
+    if nama_user == 'Roro':#kondisi user roro
+        id_candi = int(input('Masukkan ID candi: '))
+
+        if id_candi > candi[0] or id_candi<0:#candi tidak terdaftar
+            return print('Tidak ada candi dengan ID tersebut.')
+        
+        else:#candi terdaftar
+            while True : #memastikan input konfirmasi benar
+                confirm = str(input(f'Apakah anda yakin ingin menghancurkan candi ID: {id_candi} (Y/N)?'))
+                if confirm == 'Y' or confirm == 'N':
+                    break
+                
+            if confirm == 'Y':
+                hapusLineArray(candi, 4, id_candi)
+                return print('Candi telah berhasil dihancurkan.')
+            else:
+                return print('Candi tidak jadi dihancurkan.')
+            
+    elif nama_user == '':#kondisi user tidak login
+        return print('Silahkan login terlebih dahulu.')
+    
+    else :#kondisi user bukan roro
+        return print('User tidak memiliki wewenang untuk menghancurkan candi.')
+
+
 #f12
 def ayamberkokok ():
     count_candi = 0
