@@ -145,7 +145,7 @@ def hapusLineArray(nama_array, jumlah_kolom_array, index_line_array): #fungsi me
     global users
     global candi
     global bahan_bangunan
-    for i in range (jumlah_kolom_array): #jumlah kolom pada array start dari 0
+    for i in range (jumlah_kolom_array): #jumlah kolom pada array hitung mulai dari 1
         nama_array[index_line_array][i] = None
 
 #f04
@@ -174,8 +174,8 @@ def hapusjin ():
             if tipeJin_Temp == 'Pembangun': 
                 for i in range (1,candi[0]+1):
                     if username_jin == candi[i][1]:
-                        hapusLineArray(candi, 4, i)
-            hapusLineArray(users, 2, index_jin)
+                        hapusLineArray(candi, 5, i)
+            hapusLineArray(users, 3, index_jin)
             return print('Jin telah berhasil dihapus dari alam gaib.')
         
         else: #tidak jadi menghapus jin yang terdaftar
@@ -413,7 +413,7 @@ def hancurkancandi():
                     break
                 
             if confirm == 'Y':
-                hapusLineArray(candi, 4, id_candi)
+                hapusLineArray(candi, 5, id_candi)
                 return print('Candi telah berhasil dihancurkan.')
             else:
                 return print('Candi tidak jadi dihancurkan.')
