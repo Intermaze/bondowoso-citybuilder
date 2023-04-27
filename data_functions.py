@@ -68,8 +68,14 @@ def csv_to_array(lokasi_fisik, variabel_target):
 
         variabel_target = combine_arr2_to_arr1(variabel_target, arr_line, n1)
         n1 += 1
+
+    file.close()
+    variabel_target[0] = n1-1 #jumlah elemen data (Neff)
     
     return variabel_target
+
+def array_to_csv(variabel_target, lokasi_fisik):
+    raise NotImplementedError
 
 
     

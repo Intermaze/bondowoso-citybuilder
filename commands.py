@@ -1,5 +1,8 @@
 from data import *
+from data_functions import csv_to_array #Digunakan dalam f13 load
 import random
+import os 
+import argparse
 
 #Cara utama menambahkan array ke data
 #Akan menambahkan Neff data (data[0]) dengan 1
@@ -38,6 +41,8 @@ def run(fungsi):
         batchbangun ()  
     if fungsi == "help":
         help ()
+    if fungsi == "save":
+        save ()
     if fungsi == "ayamberkokok":
         ayamberkokok ()         
 
@@ -435,6 +440,62 @@ def ayamberkokok ():
         print("*Bandung Bondowoso angry noise*")
         print("Roro Jonggrang dikutuk menjadi candi.")
 
+#f13
+working_dir = os.getcwd() #untuk f13 dan f14; directory folder semua fungsi dan "save"
+
+def load(): 
+    parser = argparse.ArgumentParser()
+    parser.add_argument("path", nargs="?")
+    args = parser.parse_args()
+
+    if args.path == None:
+        print("Tidak ada nama folder yang diberikan!")
+        print()
+        print("Usage: python main.py <nama_folder>")
+        exit()
+    else:
+        save_dir = os.path.join(working_dir, "save") #Asumsi folder save sudah ada
+        current_save_dir = os.path.join(save_dir, args.path)
+
+        if not os.path.exists(current_save_dir):
+            print(f"Folder “{args.path}” tidak ditemukan.")
+            exit()
+        else:
+            print("Loading...")
+            global users
+            global candi
+            global bahan_bangunan
+
+            users = csv_to_array(os.path.join(current_save_dir, "user.csv"),users)
+            candi = csv_to_array(os.path.join(current_save_dir, "candi.csv"),candi)
+            bahan_bangunan = csv_to_array(os.path.join(current_save_dir, "bahan_bangunan.csv"),bahan_bangunan) 
+
+            print("Selamat datang di program “Manajerial Candi”")
+            print("Silahkan masukkan username Anda")
+
+#f14
+def save():
+    nama_folder = input("Masukkan nama folder: ")
+    print("Saving... ")
+    
+    save_dir = os.path.join(working_dir, "save")
+
+    if "save" not in os.listdir(working_dir):
+        print("Membuat folder save...")
+        os.mkdir(save_dir)
+
+    save_list = os.listdir(save_dir)
+
+    if nama_folder not in save_list:
+        print(f"Membuat folder save/{nama_folder}...")
+    
+    new_save = os.path.join(save_dir, nama_folder)
+    os.mkdir(new_save)
+
+    #Todo: buat fungsi data_functions baru: array_to_csv dan pakai disini
+
+    print(f"Berhasil menyimpan data di folder {nama_folder}!")
+    
 
 #f15
 def print_help (command):
