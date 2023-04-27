@@ -42,7 +42,7 @@ def combine_arr2_to_arr1(arr1, arr2, N1):
 
     return arr3
 
-def csv_to_array(lokasi_fisik, variabel_target):
+def csv_to_array(lokasi_fisik, array_target):
 
     #Inisialisasi
     file = open(lokasi_fisik, 'r')
@@ -66,17 +66,34 @@ def csv_to_array(lokasi_fisik, variabel_target):
         #Ada elemen lagi, karena tidak ada ";" di akhir line
         arr_line[element_count] = temp
 
-        variabel_target = combine_arr2_to_arr1(variabel_target, arr_line, n1)
+        array_target = combine_arr2_to_arr1(array_target, arr_line, n1)
         n1 += 1
 
     file.close()
-    variabel_target[0] = n1-1 #jumlah elemen data (Neff)
+    array_target[0] = n1-1 #jumlah elemen data (Neff)
     
-    return variabel_target
+    return array_target
 
-def array_to_csv(variabel_target, lokasi_fisik):
-    raise NotImplementedError
+def array_to_csv(array_target, lokasi_fisik, jumlah_kolom, firstline):
 
+    file = open (lokasi_fisik,'w',newline='')
+
+    for baris in range(array_target[0]+1):
+        if baris == 0:
+            file.write(firstline)
+            file.write("\n")
+        elif array_target[baris][0] == None: #jika isi array None (terhapus), tidak di
+            pass
+        else:
+            stringtemp = ""
+            for i in range(jumlah_kolom):
+                stringtemp += str(array_target[baris][i])
+                if i != jumlah_kolom-1:
+                    stringtemp += ";"
+            file.write(stringtemp)
+            file.write("\n")
+    
+    file.close()
 
     
 

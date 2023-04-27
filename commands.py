@@ -1,5 +1,6 @@
 from data import *
 from data_functions import csv_to_array #Digunakan dalam f13 load
+from data_functions import array_to_csv #Digunakan dalam f14 save
 import random
 import os 
 import argparse
@@ -44,7 +45,7 @@ def run(fungsi):
     if fungsi == "save":
         save ()
     if fungsi == "ayamberkokok":
-        ayamberkokok ()         
+        ayamberkokok ()
     if fungsi == "hapusjin":
         hapusjin ()         
     if fungsi == "hancurkancandi":
@@ -100,7 +101,7 @@ def summonjin():
         global users #Akses users sebagai variabel global
 
         while True:
-            nomor_jenis_jin = int(input("Masukkan nomor jenis jin yang ingin dipanggil: "))
+            nomor_jenis_jin = int(input("Masukkan nomor jenis jin yang ingin dipanggil (1/2): "))
             if nomor_jenis_jin == 1 or nomor_jenis_jin == 2:
                 break
             print(f'Tidak ada jenis jin bernomor "{nomor_jenis_jin}"!')
@@ -488,12 +489,19 @@ def save():
         os.mkdir(save_dir)
 
     save_list = os.listdir(save_dir)
+    new_save = os.path.join(save_dir, nama_folder)
 
     if nama_folder not in save_list:
         print(f"Membuat folder save/{nama_folder}...")
+        os.mkdir(new_save)
     
-    new_save = os.path.join(save_dir, nama_folder)
-    os.mkdir(new_save)
+    users_dir = os.path.join(new_save, "user.csv")
+    candi_dir = os.path.join(new_save, "candi.csv")
+    bahan_bangunan_dir = os.path.join(new_save, "bahan_bangunan.csv")
+
+    array_to_csv(users, users_dir, 3, "username;password;role")
+    array_to_csv(candi, candi_dir, 5, "id;pembuat;pasir;batu;air")
+    array_to_csv(bahan_bangunan, bahan_bangunan_dir, 3, "nama;deskripsi;jumlah")
 
     #Todo: buat fungsi data_functions baru: array_to_csv dan pakai disini
 
