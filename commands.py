@@ -45,7 +45,10 @@ def run(fungsi):
         save ()
     if fungsi == "ayamberkokok":
         ayamberkokok ()         
-
+    if fungsi == "hapusjin":
+        hapusjin ()         
+    if fungsi == "hancurkancandi":
+        hancurkancandi ()         
 #f00 (Testing; lihat isi data)
 def debug():
     print("nama_user:", nama_user)
