@@ -50,6 +50,11 @@ def run(fungsi):
         hapusjin ()         
     if fungsi == "hancurkancandi":
         hancurkancandi ()         
+    if fungsi == "laporanjin":
+        laporanjin ()
+    if fungsi == "laporancandi":
+        laporancandi ()
+
 #f00 (Testing; lihat isi data)
 def debug():
     print("nama_user:", nama_user)
@@ -167,7 +172,7 @@ def hapusjin ():
 
     if index_jin != -1 : #apabila jin terdaftar
         while True : #memastikan input konfirmasi benar
-            confirm = str(input('Apakah anda yakin ingin menghapus jin dengan username Jin1 (Y/N)?'))
+            confirm = str(input(f'Apakah anda yakin ingin menghapus jin dengan username {username_jin} (Y/N)? '))
             if confirm == 'Y' or confirm == 'N':
                 break
 
@@ -360,7 +365,7 @@ def batchbangun ():
                     else:
                         for j in range (candi[0], 0, -1):
                             if candi[j][0] != "":
-                                id_terakhir = i+1
+                                id_terakhir = j+1
                                 break
                     
                     #Mengecek jin pembangun agar bisa dimasukkan ke data candi
@@ -397,6 +402,101 @@ def batchbangun ():
 
                 print (f"Mengerahkan {jin_pembangun} jin untuk membangun candi dengan total bahan {total_pasir} pasir, {total_batu} batu, dan {total_air} air.")
                 print (f"Bangun gagal. Kurang {kurang_pasir} pasir, {kurang_batu} batu, dan {kurang_air} air.")
+
+#f09
+def laporanjin ():
+    global users
+    if nama_user != "Bondowoso" :
+        print ("Laporan jin hanya dapat diakses oleh akun Bandung Bondowoso.")
+
+    else :
+        total_jin = 0
+        jin_pengumpul = 0
+        jin_pembangun = 0
+        candijin_terajin = -1
+        candijin_termalas = 1000
+        jin_terajin = "-"
+        jin_termalas = "-"
+
+        for i in range (3,users[0]+1):
+            #Mengantisipasi indeks kosong
+            if users[i][0] != None:
+                total_jin += 1
+                if users[i][2] == "Pengumpul":
+                    jin_pengumpul += 1
+                else :
+                    jin_pembangun += 1
+                
+                total_candibuat = 0
+                for j in range (1,candi[0]+1):
+                    if users[i][2] == "Pembangun":
+                        if users[i][0] == candi[j][1]:
+                            total_candibuat += 1
+
+                #Termalas/Terajin
+                if users[i][2] == "Pembangun": #Jin pengumpul tidak ikut dalam perhitungan
+                    if (candijin_terajin <= total_candibuat):
+                        if (candijin_terajin == total_candibuat):
+                            if ((jin_terajin > users[i][0]) == True):
+                                jin_terajin = users[i][0]
+                            else:
+                                jin_terajin = jin_terajin
+                        else :
+                            candijin_terajin = total_candibuat
+                            jin_terajin = users[i][0]
+                    if (candijin_termalas >= total_candibuat):
+                        if (candijin_termalas == total_candibuat):
+                            if ((jin_termalas < users[i][0]) == True):
+                                jin_termalas = users[i][0]
+                            else:
+                                jin_termalas = jin_termalas
+                        else :
+                            candijin_termalas = total_candibuat
+                            jin_termalas = users[i][0]
+
+        print (f"Total Jin: {total_jin}")
+        print (f"Total Jin Pengumpul: {jin_pengumpul}")
+        print (f"Total Jin Pembangun: {jin_pembangun}")   
+        print (f"Jin Terajin: {jin_terajin}")
+        print (f"Jin Termalas: {jin_termalas}")
+        print (f"Jumlah Pasir: {bahan_bangunan[1][2]} unit")     
+        print (f"Jumlah Batu: {bahan_bangunan[2][2]} unit")     
+        print (f"Jumlah Air: {bahan_bangunan[3][2]} unit")     
+
+#f10
+def laporancandi():
+    if nama_user != "Bondowoso" :
+        print ("Laporan candi hanya dapat diakses oleh akun Bandung Bondowoso.")
+
+    else :  
+        total_candi = 0  
+        total_pasir = 0
+        total_batu = 0
+        total_air = 0
+        candi_termahal = 0
+        candi_termurah = 162500
+
+        for i in range (1, candi[0]+1):
+            if candi[i][0] != None:
+                total_candi += 1
+                total_pasir += int(candi[i][2])
+                total_batu += int(candi[i][3])
+                total_air += int(candi[i][4])    
+
+                harga_candi = 10000*candi[i][2]+15000*candi[i][3]+7500*candi[i][4]
+                if (candi_termahal < harga_candi):
+                    idcandi_termahal = candi[i][0]
+                    candi_termahal = harga_candi
+                if (candi_termurah > harga_candi):
+                    idcandi_termurah = candi[i][0]
+                    candi_termurah = harga_candi
+
+        print (f"Total Candi: {total_candi}")
+        print (f"Total Pasir yang digunakan: {total_pasir}")
+        print (f"Total Batu yang digunakan: {total_batu}")
+        print (f"Total Air yang digunakan: {total_air}")
+        print (f"ID Candi Termahal: {idcandi_termahal} (Rp {candi_termahal})")
+        print (f"ID Candi Termurah: {idcandi_termurah} (Rp {candi_termurah})")
 
 #f11
 def hancurkancandi():
