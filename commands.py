@@ -54,6 +54,8 @@ def run(fungsi):
         laporanjin ()
     if fungsi == "laporancandi":
         laporancandi ()
+    if fungsi == "exit":
+        exit ()
 
 #f00 (Testing; lihat isi data)
 def debug():
@@ -528,6 +530,7 @@ def hancurkancandi():
 
 #f12
 def ayamberkokok ():
+    global candi
     count_candi = 0
     for i in range (candi[0], 0, -1):
         if candi[i][0] != "":
@@ -543,6 +546,7 @@ def ayamberkokok ():
         print("")
         print("*Bandung Bondowoso angry noise*")
         print("Roro Jonggrang dikutuk menjadi candi.")
+    quit()
 
 #f13
 working_dir = os.getcwd() #untuk f13 dan f14; directory folder semua fungsi dan "save"
@@ -655,7 +659,6 @@ def print_help (command):
     if command == 'exit':
         print('. exit')
         print('   Untuk keluar dari program')
-    return
 
 def help():
     help_belum_login =['login', 'exit', 'save']
@@ -688,3 +691,14 @@ def help():
                     for i in range (4):
                         print((i+1), end="")
                         print_help(help_jin_pembangun[i])
+
+    #f16
+    def exit ():
+        exit_command = input("Apakah Anda mau melakukan penyimpanan file yang sudah diubah? (y/n)")
+        if exit_command == "y":
+            save()
+            quit()
+        elif exit_command == "n":
+            quit()
+        else:
+            exit()
