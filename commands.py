@@ -122,16 +122,16 @@ def summonjin():
             username_jin = input('Masukkan username jin: ')
             if users[0] == 2: #Jika belum ada jin, langsung lanjut ke tahap berikutnya
                 break
-            else:
-                username_jin_sudah_diambil = False
-                for i in range(3,users[0]+1): #disini ngecek setiap indeks user jin apakah ada yang sama atau nggak
-                    if username_jin == users[i][0]:
-                        username_jin_sudah_diambil = True
+
+            username_jin_sudah_diambil = True
+            for i in range(3,users[0]+1): #disini ngecek setiap indeks user jin apakah ada yang sama atau nggak
+                if username_jin != users[i][0]:
+                    username_jin_sudah_diambil = False            
             
-            if username_jin_sudah_diambil:
-                print(f'Username “{username_jin}” sudah diambil!')
-            else:
+            if username_jin_sudah_diambil == False:
                 break
+
+            print(f'Username “{username_jin}” sudah diambil!')
 
         while True:
             password_jin = input('Masukkan password jin: ')
@@ -693,12 +693,12 @@ def help():
                         print_help(help_jin_pembangun[i])
 
     #f16
-def exit ():
-    exit_command = input("Apakah Anda mau melakukan penyimpanan file yang sudah diubah? (y/n)")
-    if exit_command == "y":
-        save()
-        quit()
-    elif exit_command == "n":
-        quit()
-    else:
-        exit()
+    def exit ():
+        exit_command = input("Apakah Anda mau melakukan penyimpanan file yang sudah diubah? (y/n)")
+        if exit_command == "y":
+            save()
+            quit()
+        elif exit_command == "n":
+            quit()
+        else:
+            exit()
