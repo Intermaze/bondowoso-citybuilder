@@ -693,12 +693,12 @@ def help():
                         print_help(help_jin_pembangun[i])
 
     #f16
-    def exit ():
-        exit_command = input("Apakah Anda mau melakukan penyimpanan file yang sudah diubah? (y/n)")
-        if exit_command == "y":
-            save()
-            quit()
-        elif exit_command == "n":
-            quit()
-        else:
-            exit()
+def exit ():
+    exit_command = input("Apakah Anda mau melakukan penyimpanan file yang sudah diubah? (y/n)")
+    if exit_command == "y":
+        save()
+        quit()
+    elif exit_command == "n":
+        quit()
+    else:
+        exit()
