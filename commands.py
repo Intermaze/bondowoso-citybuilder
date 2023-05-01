@@ -272,7 +272,6 @@ def bangun ():
 
                     print ("Candi berhasil dibangun.")
                     print (f"Sisa candi yang perlu dibangun: {100-(id_terakhir)}.")
-                    print (candi)
 
                 #Bahan tidak memenuhi
                 else :
