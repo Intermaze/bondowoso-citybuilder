@@ -9,15 +9,29 @@ import argparse
 #Akan menambahkan Neff data (data[0]) dengan 1
 def combine_arr_to_data(data, arr):
 
-    data[0] += 1 
-    n1 = data[0]
-    
-    #N1 adalah panjang array (Neff)
-    matrix_out = [0 for i in range(n1+1)]
+    #Cek jika data ada array None, simpen index pertama ada None
+    ada_None = False
+    id_None = 0
 
-    for i in range(n1):
-        matrix_out[i] = data[i]
-    matrix_out[n1] = arr
+    for i in range(1, data[0]+1):
+        if data[i][0] == None and ada_None == False:
+            ada_None = True
+            id_None = i
+    
+    if ada_None: #jika ada array None, Neff tidak ditambahkan dan array None dirubah oleh array
+        data[id_None] = arr
+        matrix_out = data
+
+    else:
+        data[0] += 1 
+        n1 = data[0]
+        
+        #N1 adalah panjang array (Neff)
+        matrix_out = [0 for i in range(n1+1)]
+
+        for i in range(n1):
+            matrix_out[i] = data[i]
+        matrix_out[n1] = arr
 
     return matrix_out
 
@@ -143,12 +157,7 @@ def summonjin():
 
         users = combine_arr_to_data(users, arrTemp)
 
-def tipe_lain_jin(tipejin):
-    if tipejin == "Pembangun":
-        return "Pengumpul"
-    else:
-        return "Pembangun"
-
+#f04
 def hapusLineArray(nama_array, jumlah_kolom_array, index_line_array): #fungsi mengubah isi satu line pada array menjadi none
     global users
     global candi
@@ -156,7 +165,6 @@ def hapusLineArray(nama_array, jumlah_kolom_array, index_line_array): #fungsi me
     for i in range (jumlah_kolom_array): #jumlah kolom pada array hitung mulai dari 1
         nama_array[index_line_array][i] = None
 
-#f04
 def hapusjin ():
     global users
     global candi
@@ -199,6 +207,12 @@ def hapusjin ():
         print('user tidak memiliki wewenang untuk mengganggu alam jin')
 
 #f05
+def tipe_lain_jin(tipejin):
+    if tipejin == "Pembangun":
+        return "Pengumpul"
+    else:
+        return "Pembangun"
+
 def ubahjin():
     global users
     user_jin = input("Masukkan username jin: ")
@@ -535,28 +549,31 @@ def hancurkancandi():
 
 #f12
 def ayamberkokok ():
-    global candi
-    count_candi = 0
-    for i in range (candi[0], 0, -1):
-        if candi[i][0] != "":
-            count_candi += 1
-    print("Kukuruyuk.. Kukuruyuk..")
-    print("")
-    print("Jumlah Candi : ",count_candi)
-    print("")
-    if count_candi >= 100 :
-        print("Yah,Bandung Bondowoso memenangkan permainan!")
+    if nama_user != "Roro" :
+        print ("Ayam berkokok hanya dapat diakses oleh akun Roro Jonggrang.")
+
     else :
-        print("Selamat, Roro Jonggrang memenangkan permainan!")
+        global candi
+        count_candi = 0
+        for i in range (candi[0], 0, -1):
+            if candi[i][0] != "":
+                count_candi += 1
+        print("Kukuruyuk.. Kukuruyuk..")
         print("")
-        print("*Bandung Bondowoso angry noise*")
-        print("Roro Jonggrang dikutuk menjadi candi.")
-    quit()
+        print("Jumlah Candi : ",count_candi)
+        print("")
+        if count_candi >= 100 :
+            print("Yah,Bandung Bondowoso memenangkan permainan!")
+        else :
+            print("Selamat, Roro Jonggrang memenangkan permainan!")
+            print("")
+            print("*Bandung Bondowoso angry noise*")
+            print("Roro Jonggrang dikutuk menjadi candi.")
+        quit()
 
 #f13
-working_dir = os.getcwd() #untuk f13 dan f14; directory folder semua fungsi dan "save"
-
 def load(): 
+    working_dir = os.getcwd() #Directory folder semua .py dan folder "save"
     parser = argparse.ArgumentParser()
     parser.add_argument("path", nargs="?")
     args = parser.parse_args()
@@ -565,14 +582,14 @@ def load():
         print("Tidak ada nama folder yang diberikan!")
         print()
         print("Usage: python main.py <nama_folder>")
-        exit()
+        quit()
     else:
         save_dir = os.path.join(working_dir, "save") #Asumsi folder save sudah ada
         current_save_dir = os.path.join(save_dir, args.path)
 
         if not os.path.exists(current_save_dir):
             print(f"Folder “{args.path}” tidak ditemukan.")
-            exit()
+            quit()
         else:
             print("Loading...")
             global users
@@ -584,10 +601,11 @@ def load():
             bahan_bangunan = csv_to_array(os.path.join(current_save_dir, "bahan_bangunan.csv"),bahan_bangunan) 
 
             print("Selamat datang di program “Manajerial Candi”")
-            print("Silahkan masukkan username Anda")
+            print('Silahkan ketik "login", atau ketik "help" untuk melihat daftar command.')
 
 #f14
 def save():
+    working_dir = os.getcwd() #Directory folder semua .py dan folder "save"
     nama_folder = input("Masukkan nama folder: ")
     print("Saving... ")
     
@@ -608,11 +626,13 @@ def save():
     candi_dir = os.path.join(new_save, "candi.csv")
     bahan_bangunan_dir = os.path.join(new_save, "bahan_bangunan.csv")
 
+    global users
+    global candi
+    global bahan_bangunan
+
     array_to_csv(users, users_dir, 3, "username;password;role")
     array_to_csv(candi, candi_dir, 5, "id;pembuat;pasir;batu;air")
     array_to_csv(bahan_bangunan, bahan_bangunan_dir, 3, "nama;deskripsi;jumlah")
-
-    #Todo: buat fungsi data_functions baru: array_to_csv dan pakai disini
 
     print(f"Berhasil menyimpan data di folder {nama_folder}!")
     
@@ -697,13 +717,13 @@ def help():
                         print((i+1), end="")
                         print_help(help_jin_pembangun[i])
 
-    #f16
-    def exit ():
-        exit_command = input("Apakah Anda mau melakukan penyimpanan file yang sudah diubah? (y/n)")
-        if exit_command == "y":
-            save()
-            quit()
-        elif exit_command == "n":
-            quit()
-        else:
-            exit()
+#f16
+def exit ():
+    exit_command = input("Apakah Anda mau melakukan penyimpanan file yang sudah diubah? (Y/N)")
+    if exit_command == "Y":
+        save()
+        quit()
+    elif exit_command == "N":
+        quit()
+    else:
+        exit()
