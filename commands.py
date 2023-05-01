@@ -621,11 +621,13 @@ def save():
     candi_dir = os.path.join(new_save, "candi.csv")
     bahan_bangunan_dir = os.path.join(new_save, "bahan_bangunan.csv")
 
+    global users
+    global candi
+    global bahan_bangunan
+
     array_to_csv(users, users_dir, 3, "username;password;role")
     array_to_csv(candi, candi_dir, 5, "id;pembuat;pasir;batu;air")
     array_to_csv(bahan_bangunan, bahan_bangunan_dir, 3, "nama;deskripsi;jumlah")
-
-    #Todo: buat fungsi data_functions baru: array_to_csv dan pakai disini
 
     print(f"Berhasil menyimpan data di folder {nama_folder}!")
     
