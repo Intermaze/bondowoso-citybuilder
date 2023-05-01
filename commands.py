@@ -688,6 +688,7 @@ def print_help (command):
         print('   Untuk keluar dari program')
 
 def help():
+    #daftar command yang bisa dipanggil masing-masing nama_user
     help_belum_login =['login', 'exit', 'save']
     help_bondowoso = ['logout', 'summonjin', 'hapusjin', 'ubahjin', 'batchkumpul', 'batchbangun', 'laporanjin', 'laporancandi', 'save', 'exit']
     help_roro = ['logout','hancurkancandi', 'ayamberkokok', 'save', 'exit']
@@ -711,21 +712,21 @@ def help():
         for i in range (3,users[0]+1):
             if users[i][0] == nama_user :
                 if users[i][2] == "Pengumpul" :
-                    for i in range (4):
-                        print((i+1), end="")
-                        print_help(help_jin_pengumpul[i])
+                    for j in range (4):
+                        print((j+1), end="")
+                        print_help(help_jin_pengumpul[j])
                 if users[i][2] == "Pembangun" :
-                    for i in range (4):
-                        print((i+1), end="")
-                        print_help(help_jin_pembangun[i])
+                    for j in range (4):
+                        print((j+1), end="")
+                        print_help(help_jin_pembangun[j])
 
-#f16
+    #f16
 def exit ():
     exit_command = input("Apakah Anda mau melakukan penyimpanan file yang sudah diubah? (Y/N)")
-    if exit_command == "Y":
+    if exit_command == "y" or exit_command == "Y":
         save()
         quit()
-    elif exit_command == "N":
+    elif exit_command == "n" or exit_command == "N":
         quit()
     else:
         exit()
