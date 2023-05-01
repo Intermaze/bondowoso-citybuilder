@@ -36,8 +36,8 @@ def combine_arr_to_data(data, arr):
     return matrix_out
 
 def run(fungsi):
-    if fungsi == "debug":
-        debug()
+    #if fungsi == "debug":
+    #    debug()
     if fungsi == "login":
         login()
     if fungsi == "logout":
@@ -72,11 +72,11 @@ def run(fungsi):
         exit ()
 
 #f00 (Testing; lihat isi data)
-def debug():
-    print("nama_user:", nama_user)
-    print("users:",users)
-    print("candi:",candi)
-    print("bahan_bangunan:",bahan_bangunan)
+#def debug():
+#    print("nama_user:", nama_user)
+#    print("users:",users)
+#    print("candi:",candi)
+#    print("bahan_bangunan:",bahan_bangunan)
 
 #f01
 def login():
@@ -204,7 +204,7 @@ def hapusjin ():
             print('Tidak ada jin dengan username tersebut.')
         
     else:    
-        print('user tidak memiliki wewenang untuk mengganggu alam jin')
+        print('User tidak memiliki wewenang untuk mengganggu alam jin')
 
 #f05
 def tipe_lain_jin(tipejin):
@@ -214,27 +214,30 @@ def tipe_lain_jin(tipejin):
         return "Pembangun"
 
 def ubahjin():
-    global users
-    user_jin = input("Masukkan username jin: ")
-    jin_found = False
+    if nama_user != 'Bondowoso':
+        print('User tidak memiliki wewenang untuk mengganggu alam jin')
+    else: 
+        global users
+        user_jin = input("Masukkan username jin: ")
+        jin_found = False
 
-    for i in range(3, users[0]+1):
-        if users[i][0] == user_jin:
-            jin_found = True
-            konfirmasi = input(f"Jin ini bertipe “{users[i][2]}”. Yakin ingin mengubah ke tipe “{tipe_lain_jin(users[i][2])}” (Y/N)? ")
+        for i in range(3, users[0]+1):
+            if users[i][0] == user_jin:
+                jin_found = True
+                konfirmasi = input(f"Jin ini bertipe “{users[i][2]}”. Yakin ingin mengubah ke tipe “{tipe_lain_jin(users[i][2])}” (Y/N)? ")
 
-            while True: #Mengulangi input sampai user memilih "Y" atau "N"
-                if konfirmasi == "Y":
-                    users[i][2] = tipe_lain_jin(users[i][2])
-                    print("Jin telah berhasil diubah.")
-                    break
-                if konfirmasi == "N":
-                    break
-                konfirmasi = input(f"Jin ini bertipe “{users[i][2]}”. Yakin ingin mengubah ke tipe “Pembangun” (Y/N)?")
-            break
-    
-    if jin_found == False:
-        print("Tidak ada jin dengan username tersebut.")
+                while True: #Mengulangi input sampai user memilih "Y" atau "N"
+                    if konfirmasi == "Y":
+                        users[i][2] = tipe_lain_jin(users[i][2])
+                        print("Jin telah berhasil diubah.")
+                        break
+                    if konfirmasi == "N":
+                        break
+                    konfirmasi = input(f"Jin ini bertipe “{users[i][2]}”. Yakin ingin mengubah ke tipe “{tipe_lain_jin(users[i][2])}” (Y/N)?")
+                break
+        
+        if jin_found == False:
+            print("Tidak ada jin dengan username tersebut.")
 
 #f06 
 def bangun ():
