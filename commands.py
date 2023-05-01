@@ -530,23 +530,27 @@ def hancurkancandi():
 
 #f12
 def ayamberkokok ():
-    global candi
-    count_candi = 0
-    for i in range (candi[0], 0, -1):
-        if candi[i][0] != "":
-            count_candi += 1
-    print("Kukuruyuk.. Kukuruyuk..")
-    print("")
-    print("Jumlah Candi : ",count_candi)
-    print("")
-    if count_candi >= 100 :
-        print("Yah,Bandung Bondowoso memenangkan permainan!")
+    if nama_user != "Roro" :
+        print ("Ayam berkokok hanya dapat diakses oleh akun Roro Jonggrang.")
+
     else :
-        print("Selamat, Roro Jonggrang memenangkan permainan!")
+        global candi
+        count_candi = 0
+        for i in range (candi[0], 0, -1):
+            if candi[i][0] != "":
+                count_candi += 1
+        print("Kukuruyuk.. Kukuruyuk..")
         print("")
-        print("*Bandung Bondowoso angry noise*")
-        print("Roro Jonggrang dikutuk menjadi candi.")
-    quit()
+        print("Jumlah Candi : ",count_candi)
+        print("")
+        if count_candi >= 100 :
+            print("Yah,Bandung Bondowoso memenangkan permainan!")
+        else :
+            print("Selamat, Roro Jonggrang memenangkan permainan!")
+            print("")
+            print("*Bandung Bondowoso angry noise*")
+            print("Roro Jonggrang dikutuk menjadi candi.")
+        quit()
 
 #f13
 working_dir = os.getcwd() #untuk f13 dan f14; directory folder semua fungsi dan "save"
@@ -693,12 +697,12 @@ def help():
                         print_help(help_jin_pembangun[i])
 
     #f16
-    def exit ():
-        exit_command = input("Apakah Anda mau melakukan penyimpanan file yang sudah diubah? (y/n)")
-        if exit_command == "y":
-            save()
-            quit()
-        elif exit_command == "n":
-            quit()
-        else:
-            exit()
+def exit ():
+    exit_command = input("Apakah Anda mau melakukan penyimpanan file yang sudah diubah? (y/n)")
+    if exit_command == "y":
+        save()
+        quit()
+    elif exit_command == "n":
+        quit()
+    else:
+        exit()
