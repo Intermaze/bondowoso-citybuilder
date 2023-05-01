@@ -160,38 +160,43 @@ def hapusLineArray(nama_array, jumlah_kolom_array, index_line_array): #fungsi me
 def hapusjin ():
     global users
     global candi
+    global nama_user
 
-    #inisiasi awal dan input
-    username_jin = str(input('Masukkan username jin : '))
-    index_jin = -1 #-1 artinya tidak terdaftar
-
-    #mengecek apakah username jin terdaftar
-    for i in range(3,users[0]+1): #disini ngecek setiap indeks user jin apakah ada yang sama atau nggak
-        if username_jin == users[i][0]:
-            index_jin = i
-
-    tipeJin_Temp = users[index_jin][2] #tipe jin yang ingin dihapus
-
-    if index_jin != -1 : #apabila jin terdaftar
-        while True : #memastikan input konfirmasi benar
-            confirm = str(input(f'Apakah anda yakin ingin menghapus jin dengan username {username_jin} (Y/N)? '))
-            if confirm == 'Y' or confirm == 'N':
-                break
-
-        if confirm == 'Y': #menghapus jin yang dipilih
-            if tipeJin_Temp == 'Pembangun': 
-                for i in range (1,candi[0]+1):
-                    if username_jin == candi[i][1]:
-                        hapusLineArray(candi, 5, i)
-            hapusLineArray(users, 3, index_jin)
-            return print('Jin telah berhasil dihapus dari alam gaib.')
+    if nama_user == 'Bondowoso':
         
-        else: #tidak jadi menghapus jin yang terdaftar
-            return print('Jin tidak jadi dihapus dari alam gaib')
-        
-    else: #jin tidak terdaftar
-        return print('Tidak ada jin dengan username tersebut.')
+        #inisiasi awal dan input
+        username_jin = str(input('Masukkan username jin : '))
+        index_jin = -1 #-1 artinya tidak terdaftar
 
+        #mengecek apakah username jin terdaftar
+        for i in range(3,users[0]+1): #disini ngecek setiap indeks user jin apakah ada yang sama atau nggak
+            if username_jin == users[i][0]:
+                index_jin = i
+
+        tipeJin_Temp = users[index_jin][2] #tipe jin yang ingin dihapus
+
+        if index_jin != -1 : #apabila jin terdaftar
+            while True : #memastikan input konfirmasi benar
+                confirm = str(input(f'Apakah anda yakin ingin menghapus jin dengan username {username_jin} (Y/N)? '))
+                if confirm == 'Y' or confirm == 'N':
+                    break
+
+            if confirm == 'Y': #menghapus jin yang dipilih
+                if tipeJin_Temp == 'Pembangun': 
+                    for i in range (1,candi[0]+1):
+                        if username_jin == candi[i][1]:
+                            hapusLineArray(candi, 5, i)
+                hapusLineArray(users, 3, index_jin)
+                print('Jin telah berhasil dihapus dari alam gaib.')
+            
+            else: #tidak jadi menghapus jin yang terdaftar
+                print('Jin tidak jadi dihapus dari alam gaib')
+            
+        else: #jin tidak terdaftar
+            print('Tidak ada jin dengan username tersebut.')
+        
+    else:    
+        print('user tidak memiliki wewenang untuk mengganggu alam jin')
 
 #f05
 def ubahjin():
@@ -507,7 +512,7 @@ def hancurkancandi():
         id_candi = int(input('Masukkan ID candi: '))
 
         if id_candi > candi[0] or id_candi<0:#candi tidak terdaftar
-            return print('Tidak ada candi dengan ID tersebut.')
+             print('Tidak ada candi dengan ID tersebut.')
         
         else:#candi terdaftar
             while True : #memastikan input konfirmasi benar
@@ -517,15 +522,15 @@ def hancurkancandi():
                 
             if confirm == 'Y':
                 hapusLineArray(candi, 5, id_candi)
-                return print('Candi telah berhasil dihancurkan.')
+                print ('Candi telah berhasil dihancurkan.')
             else:
-                return print('Candi tidak jadi dihancurkan.')
+                print ('Candi tidak jadi dihancurkan.')
             
     elif nama_user == '':#kondisi user tidak login
-        return print('Silahkan login terlebih dahulu.')
+        print('Silahkan login terlebih dahulu.')
     
     else :#kondisi user bukan roro
-        return print('User tidak memiliki wewenang untuk menghancurkan candi.')
+        print('User tidak memiliki wewenang untuk menghancurkan candi.')
 
 
 #f12
